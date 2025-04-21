@@ -9,7 +9,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # Configure Gemini API (directly using provided key if .env not set)
-API_KEY = os.getenv('GEMINI_API_KEY') or 'AIzaSyCBv8jNE-5K8Ojs0UumdeBL_Zba68b4e18'
+API_KEY = os.getenv('GEMINI_API_KEY') or ''
 genai.configure(api_key=API_KEY)
 model = genai.GenerativeModel('gemini-2.0-flash')
 
