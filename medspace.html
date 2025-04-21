@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Med Space - Meditation Room</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+    .sun {
+      position: absolute;
+      top: 6vh;
+      right: 10vw;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, #fffde4 0%, #ffd886 70%, #ffb347 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 60px 10px #fffde4;
+      animation: sunPulse 5s ease-in-out infinite alternate;
+      z-index: 1;
+    }
+    @keyframes sunPulse {
+      0% { filter: brightness(1); }
+      100% { filter: brightness(1.15); box-shadow: 0 0 80px 20px #fffde4; }
+    }
+    .cloud {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: cloudMove 30s linear infinite;
+    }
+    .cloud1 { width: 70px; height: 40px; top: 10vh; left: 10vw; animation-delay: 0s; }
+    .cloud2 { width: 100px; height: 55px; top: 18vh; left: 60vw; animation-delay: 10s; }
+    .cloud3 { width: 50px; height: 30px; top: 30vh; left: 30vw; animation-delay: 20s; }
+    @keyframes cloudMove {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(40vw); }
+    }
+    .lotus {
+      position: absolute;
+      bottom: 8vh;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: lotusFloat 4s ease-in-out infinite alternate;
+    }
+    @keyframes lotusFloat {
+      0% { transform: translateX(-50%) translateY(0); }
+      100% { transform: translateX(-50%) translateY(-15px); }
+    }
+    .med-card {
+      background: rgba(255,255,255,0.85);
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.12);
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 100%;
+      margin: 0 auto;
+      margin-top: 8vh;
+      position: relative;
+      z-index: 3;
+    }
+    .timer {
+      font-size: 2.4rem;
+      font-weight: bold;
+      color: #43cea2;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .audio-list {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .audio-player {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: linear-gradient(90deg, #f3e7e9 0%, #e3eeff 100%);
+      border-radius: 1.5rem;
+      padding: 0.8rem 1.2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: box-shadow 0.3s;
+    }
+    .audio-player:hover {
+      box-shadow: 0 4px 20px rgba(67,206,162,0.18);
+    }
+    .audio-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #185a9d;
+    }
+    .play-btn {
+      background: #43cea2;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .play-btn:hover { background: #185a9d; }
+    .progress {
+      flex: 1;
+      height: 6px;
+      background: #e3eeff;
+      border-radius: 3px;
+      margin: 0 0.5rem;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+      width: 0%;
+      transition: width 0.2s;
+    }
+  </style>
+</head>
+<body>
+  <div class="flex min-h-screen">
+    <!-- Sidebar Navbar -->
+    <nav class="flex flex-col items-center py-10 px-4 w-56 nav-gradient rounded-tr-3xl rounded-br-3xl shadow-xl animate-fadeInLeft z-10">
+      <h1 class="text-white text-3xl font-extrabold mb-12 tracking-widest drop-shadow-lg animate-bounce">MENU</h1>
+      <ul class="flex flex-col gap-8 w-full">
+        <li>
+          <a href="animated-navbar.html" class="nav-anim glow flex items-center gap-4 px-6 py-4 rounded-xl bg-gradient-to-r from-yellow-400 to-pink-400 text-white font-bold text-lg shadow-lg hover:from-pink-400 hover:to-yellow-400 transition-all duration-300">
+            🏠 Home
+          </a>
+        </li>
+        <li>
+          <a href="chatbot.html" class="nav-anim glow flex items-center gap-4 px-6 py-4 rounded-xl bg-gradient-to-r from-pink-400 to-yellow-400 text-white font-bold text-lg shadow-lg hover:from-yellow-400 hover:to-pink-400 transition-all duration-300">
+            🤖 Chatbot
+          </a>
+        </li>
+        <li>
+          <a href="medspace.html" class="nav-anim glow flex items-center gap-4 px-6 py-4 rounded-xl bg-gradient-to-r from-green-400 to-blue-400 text-white font-bold text-lg shadow-lg hover:from-blue-400 hover:to-green-400">
+            🧘 Med Space
+          </a>
+        </li>
+        <li>
+          <a href="games.html" class="nav-anim glow flex items-center gap-4 px-6 py-4 rounded-xl bg-gradient-to-r from-purple-400 to-pink-500 text-white font-bold text-lg shadow-lg hover:from-pink-500 hover:to-purple-400">
+            🎮 Games
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col justify-center items-center p-4 sm:p-8 md:p-12 animate-fadeIn relative overflow-hidden">
+      <div class="sun"></div>
+      <div class="cloud cloud1"></div>
+      <div class="cloud cloud2"></div>
+      <div class="cloud cloud3"></div>
+      <div class="lotus">
+        <svg width="120" height="80" viewBox="0 0 120 80">
+          <ellipse cx="60" cy="60" rx="45" ry="18" fill="#fff" opacity="0.2"/>
+          <ellipse cx="60" cy="60" rx="30" ry="10" fill="#43cea2" opacity="0.4"/>
+          <path d="M60 60 Q55 40 40 45 Q60 25 80 45 Q65 40 60 60" fill="#f3e7e9"/>
+          <ellipse cx="60" cy="50" rx="8" ry="16" fill="#e3eeff"/>
+        </svg>
+      </div>
+      <div class="med-card w-full max-w-lg flex flex-col items-center">
+        <h2 class="text-3xl font-bold text-center text-green-600 mb-2">Meditation Space</h2>
+        <p class="text-lg text-center text-gray-600 mb-6">Find your calm. Set a timer, play soothing music, and let your mind relax.</p>
+        <div class="relative flex flex-col items-center mb-4">
+          <svg id="progress-ring" width="120" height="120" class="absolute top-0 left-0">
+            <circle r="54" cx="60" cy="60" fill="none" stroke="#43cea2" stroke-width="8" opacity="0.18" />
+            <circle id="progress-bar" r="54" cx="60" cy="60" fill="none" stroke="#43cea2" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="339.292" />
+          </svg>
+          <div class="timer z-10" id="timer" aria-live="polite">10:00</div>
+        </div>
+        <div class="flex flex-wrap justify-center gap-2 mb-6">
+          <button class="bg-green-400 text-white font-bold px-4 py-2 rounded-2xl transition hover:bg-green-600" onclick="setTimer(5)">5 min</button>
+          <button class="bg-blue-400 text-white font-bold px-4 py-2 rounded-2xl transition hover:bg-blue-600" onclick="setTimer(10)">10 min</button>
+          <button class="bg-yellow-400 text-white font-bold px-4 py-2 rounded-2xl transition hover:bg-yellow-600" onclick="setTimer(15)">15 min</button>
+        </div>
+        <button id="startBtn" class="bg-teal-400 text-white font-bold px-8 py-3 rounded-2xl text-xl mb-4 transition hover:bg-teal-600 focus:outline-none focus:ring-4 focus:ring-teal-300" aria-label="Start meditation">Start Meditation</button>
+        <div class="flex flex-wrap justify-center gap-2 mb-4">
+          <button id="pauseBtn" class="bg-gray-400 text-white font-bold px-4 py-2 rounded-2xl transition hover:bg-gray-600" aria-label="Pause meditation">Pause</button>
+          <button id="resetBtn" class="bg-pink-400 text-white font-bold px-4 py-2 rounded-2xl transition hover:bg-pink-600" aria-label="Reset meditation">Reset</button>
+        </div>
+        <div class="w-full mb-4">
+          <label class="block text-center text-lg font-semibold text-green-700 mb-2">Choose a Song:</label>
+          <select id="audioSelect" class="w-full px-4 py-2 rounded-xl border border-green-200 focus:outline-none focus:ring-2 focus:ring-green-400" aria-label="Choose meditation song">
+            <option value="0">Meditation Song 1</option>
+            <option value="1">Meditation Song 2</option>
+          </select>
+        </div>
+        <div id="nowPlaying" class="mb-4 text-center text-teal-700 font-semibold"></div>
+        <div id="motivation" class="text-center text-lg text-indigo-700 font-bold mt-4"></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    // Responsive fix for timer and card
+    function resizeCard() {
+      const card = document.querySelector('.med-card');
+      if(window.innerWidth < 600) {
+        card.style.padding = '1.2rem';
+      } else {
+        card.style.padding = '2.5rem';
+      }
+    }
+    window.addEventListener('resize', resizeCard);
+    resizeCard();
+
+    // Timer logic
+    let timerDuration = 600;
+    let timer = timerDuration;
+    let timerInterval = null;
+    let meditationActive = false;
+    let selectedTrack = 0;
+    let audio = null;
+    let audioFadeTimeout = null;
+    const motivationalQuotes = [
+      "Breathe in calm, breathe out stress.",
+      "You are exactly where you need to be.",
+      "Peace begins with a single breath.",
+      "Let go. Relax. Restore.",
+      "Your mind is your sanctuary."
+    ];
+    function updateTimer() {
+      const mins = Math.floor(timer / 60);
+      const secs = timer % 60;
+      document.getElementById('timer').textContent = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+      // Progress ring
+      const progress = 1 - timer / timerDuration;
+      const offset = 339.292 * (1 - progress);
+      document.getElementById('progress-bar').setAttribute('stroke-dashoffset', offset);
+    }
+    function setTimer(mins) {
+      timerDuration = mins * 60;
+      timer = timerDuration;
+      updateTimer();
+    }
+    function playMotivation() {
+      const msg = motivationalQuotes[Math.floor(Math.random()*motivationalQuotes.length)];
+      document.getElementById('motivation').textContent = msg;
+    }
+    function startMeditation() {
+      if(meditationActive) return;
+      meditationActive = true;
+      playMotivation();
+      document.getElementById('startBtn').disabled = true;
+      document.getElementById('startBtn').textContent = 'Meditating...';
+      timer = timerDuration;
+      updateTimer();
+      timerInterval = setInterval(()=>{
+        if(timer > 0) {
+          timer--;
+          updateTimer();
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          fadeOutAudio();
+          document.getElementById('startBtn').disabled = false;
+          document.getElementById('startBtn').textContent = 'Start Meditation';
+          meditationActive = false;
+        }
+      }, 1000);
+      playAudio(selectedTrack);
+    }
+    function pauseMeditation() {
+      if(timerInterval) clearInterval(timerInterval);
+      timerInterval = null;
+      if(audio) audio.pause();
+      document.getElementById('startBtn').disabled = false;
+      document.getElementById('startBtn').textContent = 'Resume Meditation';
+      meditationActive = false;
+    }
+    function resetMeditation() {
+      if(timerInterval) clearInterval(timerInterval);
+      timerInterval = null;
+      timer = timerDuration;
+      updateTimer();
+      fadeOutAudio(true);
+      document.getElementById('startBtn').disabled = false;
+      document.getElementById('startBtn').textContent = 'Start Meditation';
+      meditationActive = false;
+      document.getElementById('motivation').textContent = '';
+    }
+    function playAudio(idx) {
+      if(audio) {
+        fadeOutAudio(true);
+      }
+      const urls = [
+        'med1.mp3',
+        'med2.mp3'
+      ];
+      const names = [
+        'Meditation Song 1',
+        'Meditation Song 2'
+      ];
+      audio = new Audio(urls[idx]);
+      audio.volume = 0;
+      audio.loop = true;
+      audio.play();
+      fadeInAudio();
+      document.getElementById('nowPlaying').textContent = `Now Playing: ${names[idx]}`;
+    }
+    function fadeInAudio() {
+      if(!audio) return;
+      let vol = 0;
+      audio.volume = 0;
+      clearTimeout(audioFadeTimeout);
+      function step() {
+        if(vol < 0.8 && audio && !audio.paused) {
+          vol += 0.05;
+          audio.volume = Math.min(vol, 0.8);
+          audioFadeTimeout = setTimeout(step, 100);
+        }
+      }
+      step();
+    }
+    function fadeOutAudio(reset) {
+      if(!audio) return;
+      let vol = audio.volume;
+      clearTimeout(audioFadeTimeout);
+      function step() {
+        if(vol > 0.05) {
+          vol -= 0.05;
+          audio.volume = Math.max(vol, 0);
+          audioFadeTimeout = setTimeout(step, 80);
+        } else {
+          audio.volume = 0;
+          audio.pause();
+          if(reset) audio.currentTime = 0;
+        }
+      }
+      step();
+    }
+    document.getElementById('startBtn').onclick = startMeditation;
+    document.getElementById('pauseBtn').onclick = pauseMeditation;
+    document.getElementById('resetBtn').onclick = resetMeditation;
+    document.getElementById('audioSelect').onchange = e => {
+      selectedTrack = parseInt(e.target.value);
+      if(meditationActive) playAudio(selectedTrack);
+    };
+    setTimer(10);
+    updateTimer();
+    document.getElementById('pauseBtn').disabled = false;
+    document.getElementById('resetBtn').disabled = false;
+    document.getElementById('nowPlaying').textContent = 'Now Playing: Meditation Song 1';
+    // Accessibility
+    document.getElementById('startBtn').setAttribute('aria-label','Start meditation');
+    document.getElementById('pauseBtn').setAttribute('aria-label','Pause meditation');
+    document.getElementById('resetBtn').setAttribute('aria-label','Reset meditation');
+    document.getElementById('audioSelect').setAttribute('aria-label','Choose meditation song');
+  </script>
+</body>
+</html>

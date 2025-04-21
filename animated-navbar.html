@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animated Colorful Navbar</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+    }
+    .nav-anim {
+      transition: transform 0.3s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.3s;
+    }
+    .nav-anim:hover {
+      transform: scale(1.08) rotate(-3deg);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .nav-gradient {
+      background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+    }
+    .glow {
+      box-shadow: 0 0 16px 4px rgba(255,255,255,0.3);
+      animation: glowPulse 2s infinite alternate;
+    }
+    @keyframes glowPulse {
+      from { box-shadow: 0 0 16px 4px rgba(255,255,255,0.3); }
+      to { box-shadow: 0 0 32px 8px rgba(255,255,255,0.5); }
+    }
+  </style>
+</head>
+<body>
+  <div class="flex min-h-screen">
+    <!-- Sidebar Navbar -->
+    <nav class="flex flex-col items-center py-10 px-4 w-56 nav-gradient rounded-tr-3xl rounded-br-3xl shadow-xl animate-fadeInLeft">
+      <h1 class="text-white text-3xl font-extrabold mb-12 tracking-widest drop-shadow-lg animate-bounce">MENU</h1>
+      <ul class="flex flex-col gap-8 w-full">
+        <li>
+          <a href="chatbot.html" class="nav-anim glow flex items-center gap-4 px-6 py-4 rounded-xl bg-gradient-to-r from-pink-400 to-yellow-400 text-white font-bold text-lg shadow-lg hover:from-yellow-400 hover:to-pink-400 transition-all duration-300">
+            🤖 Chatbot
+          </a>
+        </li>
+        <li>
+          <a href="medspace.html" class="nav-anim glow flex items-center gap-4 px-6 py-4 rounded-xl bg-gradient-to-r from-green-400 to-blue-400 text-white font-bold text-lg shadow-lg hover:from-blue-400 hover:to-green-400 transition-all duration-300">🧘 Med Space</a>
+        </li>
+        <li>
+          <a href="games.html" class="nav-anim glow flex items-center gap-4 px-6 py-4 rounded-xl bg-gradient-to-r from-purple-400 to-pink-500 text-white font-bold text-lg shadow-lg hover:from-pink-500 hover:to-purple-400">
+            🎮 Games
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col justify-center items-center p-12 animate-fadeIn">
+      <section class="w-full max-w-2xl mb-16">
+        <div class="bg-white bg-opacity-90 rounded-2xl shadow-2xl p-10 transition-all hover:scale-105 hover:bg-opacity-100 flex flex-col items-center">
+          <h2 class="text-4xl font-extrabold text-indigo-700 mb-6 animate-bounce">Welcome to Mental Peace 🌱</h2>
+          <p class="text-lg text-gray-800 mb-6 text-center">Your digital sanctuary for calm, focus, and emotional wellness. Explore our AI-powered chatbot, meditative space, and peaceful games to relax, reflect, and recharge.</p>
+          <div class="flex flex-col md:flex-row gap-8 w-full justify-center">
+            <a href="chatbot.html" class="flex-1 flex flex-col items-center p-6 rounded-2xl bg-gradient-to-br from-pink-100 to-yellow-100 shadow-lg hover:scale-105 transition">
+              <span class="text-3xl mb-2">🤖</span>
+              <span class="text-xl font-bold text-pink-700 mb-1">Chatbot</span>
+              <span class="text-gray-600 text-center">Talk to our AI for support, advice, or a friendly chat.</span>
+            </a>
+            <a href="medspace.html" class="flex-1 flex flex-col items-center p-6 rounded-2xl bg-gradient-to-br from-green-100 to-blue-100 shadow-lg hover:scale-105 transition">
+              <span class="text-3xl mb-2">🧘</span>
+              <span class="text-xl font-bold text-green-700 mb-1">Med Space</span>
+              <span class="text-gray-600 text-center">Enjoy guided meditations and calming music.</span>
+            </a>
+            <a href="games.html" class="flex-1 flex flex-col items-center p-6 rounded-2xl bg-gradient-to-br from-purple-100 to-pink-100 shadow-lg hover:scale-105 transition">
+              <span class="text-3xl mb-2">🎮</span>
+              <span class="text-xl font-bold text-purple-700 mb-1">Games</span>
+              <span class="text-gray-600 text-center">Play peaceful games to boost your mood and focus.</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    // Simple fade-in animation
+    document.querySelectorAll('.animate-fadeIn').forEach(el => {
+      el.style.opacity = 0;
+      setTimeout(() => {
+        el.style.transition = 'opacity 1.2s cubic-bezier(.68,-0.55,.27,1.55)';
+        el.style.opacity = 1;
+      }, 100);
+    });
+    document.querySelectorAll('.animate-fadeInLeft').forEach(el => {
+      el.style.opacity = 0;
+      el.style.transform = 'translateX(-60px)';
+      setTimeout(() => {
+        el.style.transition = 'opacity 1.2s cubic-bezier(.68,-0.55,.27,1.55), transform 1.2s cubic-bezier(.68,-0.55,.27,1.55)';
+        el.style.opacity = 1;
+        el.style.transform = 'translateX(0)';
+      }, 100);
+    });
+  </script>
+</body>
+</html>

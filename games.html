@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peaceful Mind Games</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+    .floating {
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .calm-bubble {
+      background: linear-gradient(90deg, #fcb69f 0%, #ffecd2 100%);
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.15);
+      padding: 2rem;
+      margin: 1rem 0;
+      transition: transform 0.2s;
+    }
+    .calm-bubble:hover {
+      transform: scale(1.03);
+    }
+    .points-badge {
+      background: #7ed957;
+      color: #fff;
+      border-radius: 9999px;
+      padding: 0.5em 1.2em;
+      font-weight: bold;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      display: inline-block;
+    }
+    .leaf {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      opacity: 0.7;
+      pointer-events: none;
+      animation: floatLeaf 12s linear infinite;
+    }
+    @keyframes floatLeaf {
+      0% {
+        transform: translateY(-60px) rotate(-10deg) scale(1);
+        opacity: 0.7;
+      }
+      50% {
+        transform: translateY(60vh) rotate(20deg) scale(1.2);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(100vh) rotate(-15deg) scale(1);
+        opacity: 0.3;
+      }
+    }
+    .wind {
+      animation: windMove 10s linear infinite alternate;
+    }
+    @keyframes windMove {
+      0% { left: 5vw; }
+      100% { left: 85vw; }
+    }
+    .nav-gradient {
+      background: linear-gradient(90deg, #a8edea 0%, #fed6e3 100%);
+    }
+    .nav-anim {
+      transition: transform 0.2s, background-position 0.2s;
+    }
+    .nav-anim:hover {
+      transform: scale(1.05);
+    }
+    .glow {
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div id="leaves"></div>
+  <div class="flex min-h-screen">
+    <!-- Sidebar Navbar -->
+    <nav class="flex flex-col items-center py-10 px-4 w-56 nav-gradient rounded-tr-3xl rounded-br-3xl shadow-xl animate-fadeInLeft z-10">
+      <h1 class="text-white text-3xl font-extrabold mb-12 tracking-widest drop-shadow-lg animate-bounce">MENU</h1>
+      <ul class="flex flex-col gap-8 w-full">
+        <li>
+          <a href="animated-navbar.html" class="nav-anim glow flex items-center gap-4 px-6 py-4 rounded-xl bg-gradient-to-r from-yellow-400 to-pink-400 text-white font-bold text-lg shadow-lg hover:from-pink-400 hover:to-yellow-400 transition-all duration-300">
+            🏠 Home
+          </a>
+        </li>
+        <li>
+          <a href="chatbot.html" class="nav-anim glow flex items-center gap-4 px-6 py-4 rounded-xl bg-gradient-to-r from-pink-400 to-yellow-400 text-white font-bold text-lg shadow-lg hover:from-yellow-400 hover:to-pink-400 transition-all duration-300">
+            🤖 Chatbot
+          </a>
+        </li>
+        <li>
+          <a href="medspace.html" class="nav-anim glow flex items-center gap-4 px-6 py-4 rounded-xl bg-gradient-to-r from-green-400 to-blue-400 text-white font-bold text-lg shadow-lg hover:from-blue-400 hover:to-green-400">
+            🧘 Med Space
+          </a>
+        </li>
+        <li>
+          <a href="games.html" class="nav-anim glow flex items-center gap-4 px-6 py-4 rounded-xl bg-gradient-to-r from-purple-400 to-pink-500 text-white font-bold text-lg shadow-lg hover:from-pink-500 hover:to-purple-400">
+            🎮 Games
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <main class="flex-1 flex flex-col items-center justify-center p-12 relative z-10">
+      <h1 class="text-4xl font-extrabold text-teal-700 mb-2 mt-10 tracking-wider drop-shadow-lg floating">🌿 Mind Peaceful Games</h1>
+      <div class="points-badge" id="points">Points: 0</div>
+      <div class="w-full max-w-2xl flex flex-col gap-8 mt-2">
+        <!-- Game 1: Breathe With Me -->
+        <div class="calm-bubble floating">
+          <h2 class="text-2xl font-bold text-teal-600 mb-2">1. Breathe With Me</h2>
+          <p class="mb-3">Follow the animated circle to inhale and exhale. Complete 5 cycles to earn points!</p>
+          <div id="breathe-game" class="flex flex-col items-center">
+            <svg id="breathe-circle" width="100" height="100">
+              <circle cx="50" cy="50" r="40" fill="#a8edea" />
+            </svg>
+            <div id="breathe-instruction" class="mt-2 text-lg font-semibold text-teal-700">Press Start to Begin</div>
+            <button id="breathe-start" class="mt-3 px-6 py-2 bg-teal-400 text-white rounded-xl font-bold hover:bg-teal-600 transition">Start</button>
+          </div>
+        </div>
+        <!-- Game 2: Gratitude Pop -->
+        <div class="calm-bubble floating">
+          <h2 class="text-2xl font-bold text-teal-600 mb-2">2. Gratitude Pop</h2>
+          <p class="mb-3">Pop the bubbles with positive words. Avoid negative ones! Score points for each positive pop.</p>
+          <div id="gratitude-game" class="relative h-40 w-full bg-gradient-to-r from-green-100 to-blue-100 rounded-xl overflow-hidden">
+            <!-- Bubbles will be dynamically added here -->
+          </div>
+          <button id="gratitude-start" class="mt-3 px-6 py-2 bg-teal-400 text-white rounded-xl font-bold hover:bg-teal-600 transition">Start</button>
+        </div>
+        <!-- Game 3: Calm Match -->
+        <div class="calm-bubble floating">
+          <h2 class="text-2xl font-bold text-teal-600 mb-2">3. Calm Match</h2>
+          <p class="mb-3">Match calming icons. Find all pairs to win points!</p>
+          <div id="match-game" class="grid grid-cols-4 gap-3 max-w-xs mx-auto"></div>
+          <button id="match-start" class="mt-3 px-6 py-2 bg-teal-400 text-white rounded-xl font-bold hover:bg-teal-600 transition">Start</button>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    // Peaceful floating leaves animation
+    const leafSVG = `<svg viewBox='0 0 40 40'><ellipse cx='20' cy='20' rx='18' ry='8' fill='#7ed957' /><ellipse cx='20' cy='20' rx='8' ry='18' fill='#43cea2' opacity='0.7'/></svg>`;
+    function spawnLeaf() {
+      const leaf = document.createElement('div');
+      leaf.className = 'leaf wind';
+      leaf.innerHTML = leafSVG;
+      leaf.style.left = Math.random() * 90 + 'vw';
+      leaf.style.top = -Math.random() * 60 + 'px';
+      leaf.style.animationDelay = Math.random() * 10 + 's';
+      document.getElementById('leaves').appendChild(leaf);
+      setTimeout(() => leaf.remove(), 13000);
+    }
+    setInterval(spawnLeaf, 900);
+    for(let i=0;i<6;i++) spawnLeaf();
+    // Points system
+    let points = 0;
+    function addPoints(n) {
+      points += n;
+      document.getElementById('points').textContent = `Points: ${points}`;
+    }
+    // Game 1: Breathe With Me
+    const breatheCircle = document.getElementById('breathe-circle');
+    const breatheInstruction = document.getElementById('breathe-instruction');
+    const breatheStart = document.getElementById('breathe-start');
+    let breatheCycles = 0, breatheRunning = false;
+    breatheStart.onclick = () => {
+      if (breatheRunning) return;
+      breatheRunning = true;
+      breatheCycles = 0;
+      breatheInstruction.textContent = 'Inhale...';
+      let growing = true;
+      let size = 40;
+      let interval = setInterval(() => {
+        if (!breatheRunning) { clearInterval(interval); return; }
+        if (growing) {
+          size += 2;
+          breatheCircle.children[0].setAttribute('r', size);
+          if (size >= 60) {
+            growing = false;
+            breatheInstruction.textContent = 'Exhale...';
+          }
+        } else {
+          size -= 2;
+          breatheCircle.children[0].setAttribute('r', size);
+          if (size <= 40) {
+            growing = true;
+            breatheCycles++;
+            breatheInstruction.textContent = breatheCycles < 5 ? 'Inhale...' : 'Done!';
+            if (breatheCycles >= 5) {
+              clearInterval(interval);
+              setTimeout(() => {
+                breatheInstruction.textContent = 'Press Start to Begin';
+                breatheRunning = false;
+              }, 2000);
+              addPoints(10);
+            }
+          }
+        }
+      }, 60);
+    };
+    // Game 2: Gratitude Pop
+    const gratitudeGame = document.getElementById('gratitude-game');
+    const gratitudeStart = document.getElementById('gratitude-start');
+    let gratitudeRunning = false, gratitudeScore = 0, gratitudeInterval;
+    const positiveWords = ['Joy', 'Hope', 'Peace', 'Love', 'Calm', 'Smile', 'Kind', 'Brave', 'Happy'];
+    const negativeWords = ['Anger', 'Stress', 'Fear', 'Worry', 'Sad', 'Guilt'];
+    gratitudeStart.onclick = () => {
+      if (gratitudeRunning) return;
+      gratitudeRunning = true;
+      gratitudeGame.innerHTML = '';
+      gratitudeScore = 0;
+      let time = 0;
+      gratitudeInterval = setInterval(() => {
+        if (time++ > 20) {
+          clearInterval(gratitudeInterval);
+          gratitudeRunning = false;
+          addPoints(gratitudeScore);
+          return;
+        }
+        const isPositive = Math.random() > 0.3;
+        const word = isPositive ? positiveWords[Math.floor(Math.random()*positiveWords.length)] : negativeWords[Math.floor(Math.random()*negativeWords.length)];
+        const bubble = document.createElement('div');
+        bubble.textContent = word;
+        bubble.className = `absolute px-4 py-2 rounded-full shadow-lg text-white font-bold cursor-pointer select-none`;
+        bubble.style.background = isPositive ? 'linear-gradient(90deg,#a8edea,#43cea2)' : 'linear-gradient(90deg,#f857a6,#ff5858)';
+        bubble.style.left = Math.random()*80+10+'%';
+        bubble.style.top = Math.random()*60+10+'%';
+        bubble.style.transition = 'opacity 0.3s';
+        gratitudeGame.appendChild(bubble);
+        bubble.onclick = () => {
+          if (isPositive) {
+            gratitudeScore += 2;
+            bubble.style.opacity = 0;
+            setTimeout(()=>bubble.remove(),250);
+          } else {
+            gratitudeScore = Math.max(0, gratitudeScore-1);
+            bubble.style.opacity = 0.3;
+            setTimeout(()=>bubble.remove(),250);
+          }
+        };
+        setTimeout(()=>{ if(gratitudeGame.contains(bubble)) bubble.remove(); }, 1800);
+      }, 700);
+    };
+    // Game 3: Calm Match
+    const matchGame = document.getElementById('match-game');
+    const matchStart = document.getElementById('match-start');
+    const icons = ['🌿','🌸','🦋','🍃','☁️','🌞','🌊','🍀'];
+    let matchPairs = [], matchFlipped = [], matchFound = [], matchRunning = false;
+    matchStart.onclick = () => {
+      if (matchRunning) return;
+      matchRunning = true;
+      matchGame.innerHTML = '';
+      matchPairs = [...icons, ...icons].sort(()=>Math.random()-0.5);
+      matchFlipped = [];
+      matchFound = Array(16).fill(false);
+      for (let i=0;i<16;i++) {
+        const card = document.createElement('button');
+        card.className = 'bg-white rounded-xl shadow p-4 text-2xl focus:outline-none transition transform hover:scale-105';
+        card.textContent = '';
+        card.dataset.idx = i;
+        card.onclick = () => {
+          if (matchFlipped.length<2 && !matchFound[i] && !matchFlipped.includes(i)) {
+            card.textContent = matchPairs[i];
+            matchFlipped.push(i);
+            if (matchFlipped.length===2) {
+              setTimeout(()=>{
+                const [a,b]=matchFlipped;
+                if (matchPairs[a]===matchPairs[b]) {
+                  matchFound[a]=matchFound[b]=true;
+                  addPoints(4);
+                } else {
+                  matchGame.children[a].textContent = '';
+                  matchGame.children[b].textContent = '';
+                }
+                matchFlipped=[];
+                if (matchFound.every(f=>f)) {
+                  matchRunning = false;
+                  setTimeout(()=>alert('You matched all pairs!'),300);
+                }
+              }, 700);
+            }
+          }
+        };
+        matchGame.appendChild(card);
+      }
+    };
+  </script>
+</body>
+</html>
